@@ -17,41 +17,42 @@ import java.util.List;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
     private Long clientId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "last_name")
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nickname")
     private String nickname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "mail_address")
     private String mailAddress;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "credit_card")
     private String creditCard;
 
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "client") //done
-    private List<Address> address;
+    @ManyToMany(mappedBy = "clients")
+    private List<Address> addresses;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status")
     private Status status = Status.BEGINNER;
 
     @OneToMany(mappedBy = "client") //done
     private List<Consultation> consultations;
 
     @OneToOne (mappedBy = "client") //done
-    private  WeekDeliverySubscription weekDeliverySubscription;
+    private  Subscription Subscription;
 
     @OneToMany(mappedBy = "client") //done
-    private List<Order> orders;
+    private List<CustomerOrder> orders;
 
 }

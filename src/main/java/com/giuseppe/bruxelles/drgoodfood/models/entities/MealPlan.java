@@ -13,28 +13,30 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "mealplan")
 public class MealPlan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mealplan_id")
     private Long mealPlanId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "carbs_percent")
     private int carbsPercent;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "fats_percent")
     private int fatsPercent;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "proteins_percent")
     private int proteinsPercent;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "calories_total")
     private int caloriesTotal;
 
-    @OneToMany(mappedBy = "mealPlan") //done
+    @OneToMany(mappedBy = "mealPlan")
     private List<Consultation> consultations;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "mealPlans")
     private List<Meal> meals;
 
 }

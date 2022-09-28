@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,23 +16,28 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id")
+    private long addressId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "num")
     private int num;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "street")
     private String street;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "zip_code")
     private int zipCode;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "city")
     private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "clientId")
-    private Client client;
+    @ManyToMany
+    @JoinTable(
+           name = "client_address",
+           joinColumns = @JoinColumn(name = "address_id"),
+           inverseJoinColumns = @JoinColumn(name = "client_id")
+   )
+    private List<Client> clients;
 
 }

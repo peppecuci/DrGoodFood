@@ -9,20 +9,19 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+@Table(name = "customerorder")
+public class CustomerOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    private Long orderId;
 
-    @Column(nullable = false)
-    private Address addressDelivery;
-
-    @Column(nullable = false)
+    @Column(nullable = false, name = "is_delivered")
     private boolean isDelivered;
 
     @ManyToOne
-    @JoinColumn(name = "clientId", nullable = false) //done
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
 }

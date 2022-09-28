@@ -16,27 +16,33 @@ import java.util.List;
 public class Meal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "meal_id")
     private Long mealId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "calories_total_amount")
     private int caloriesTotalAmount;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "carbs_total_amount")
     private int carbsTotalAmount;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "fats_total_amount")
     private int fatsTotalAmount;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "proteins_total_amount")
     private int proteinsTotalAmount;
 
     @ManyToMany
-    @JoinTable(name = "mealPlan_meal", joinColumns = @JoinColumn(name = "mealId"),
-            inverseJoinColumns = @JoinColumn(name = "mealPlanId"))
+    @JoinTable(name = "meal_plan_meal", joinColumns = @JoinColumn(name = "meal_id"),
+            inverseJoinColumns = @JoinColumn(name = "mealplan_id"))
     private List<MealPlan> mealPlans;
 
     @ManyToMany
+    @JoinTable(
+            name = "meal_ingredient",
+            joinColumns = @JoinColumn(name = "meal_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
     private List<Ingredient> ingredients;
 
 }

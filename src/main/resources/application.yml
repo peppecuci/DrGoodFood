@@ -1,8 +1,17 @@
 server:
-  port 8080
-  servlet:
+  port: 8080
+
 
 
 spring:
   datasource:
-    url:
+    url: jdbc:postgresql://localhost:5432/dr_good_food
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+

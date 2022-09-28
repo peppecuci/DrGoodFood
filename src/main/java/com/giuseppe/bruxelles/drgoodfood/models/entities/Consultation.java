@@ -16,28 +16,28 @@ import java.time.LocalDate;
 public class Consultation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, name = "consultation_id")
+    private Long consultationId;
 
-    @Column(nullable = false)
-    private int price;
-
-    @Column(nullable = false)
+    @Column(nullable = false, name = "date_of_consultation")
     private LocalDate dateConsultation = LocalDate.now();
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "weight")
     private int weight;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "waist_circumference")
     private int waistCirumference;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "counter")
     private int counter;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @ManyToOne
+    @JoinColumn(name = "meal_plan_id")
     private MealPlan mealPlan;
 
 }
