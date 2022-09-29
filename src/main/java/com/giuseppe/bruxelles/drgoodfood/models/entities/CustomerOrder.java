@@ -3,6 +3,7 @@ package com.giuseppe.bruxelles.drgoodfood.models.entities;
 import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,5 +24,13 @@ public class CustomerOrder {
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+
+    @ManyToMany
+    @JoinTable(
+            name = "customerorder_meal",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id")
+    )
+    private List<Meal> meals;
 
 }

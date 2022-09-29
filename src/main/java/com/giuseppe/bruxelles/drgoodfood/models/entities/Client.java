@@ -1,6 +1,6 @@
 package com.giuseppe.bruxelles.drgoodfood.models.entities;
 
-import com.giuseppe.bruxelles.drgoodfood.models.enums.Status;
+import com.giuseppe.bruxelles.drgoodfood.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,11 +36,12 @@ public class Client {
     @Column(nullable = false, name = "mail_address")
     private String mailAddress;
 
-    @Column(nullable = false, name = "credit_card")
+    @Column(/*nullable = false, */name = "credit_card")
     private String creditCard;
 
-    @ManyToMany(mappedBy = "clients")
-    private List<Address> addresses;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "status")

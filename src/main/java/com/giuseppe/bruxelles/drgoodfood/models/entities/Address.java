@@ -18,7 +18,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
-    private long addressId;
+    private Long addressId;
 
     @Column(nullable = false, name = "num")
     private int num;
@@ -32,12 +32,7 @@ public class Address {
     @Column(nullable = false, name = "city")
     private String city;
 
-    @ManyToMany
-    @JoinTable(
-           name = "client_address",
-           joinColumns = @JoinColumn(name = "address_id"),
-           inverseJoinColumns = @JoinColumn(name = "client_id")
-   )
+    @OneToMany(mappedBy = "address")
     private List<Client> clients;
 
 }

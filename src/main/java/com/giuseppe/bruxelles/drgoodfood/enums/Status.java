@@ -1,4 +1,4 @@
-package com.giuseppe.bruxelles.drgoodfood.models.enums;
+package com.giuseppe.bruxelles.drgoodfood.enums;
 
 public enum Status {
 
