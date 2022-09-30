@@ -1,20 +1,18 @@
 package com.giuseppe.bruxelles.drgoodfood.services;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 //TIFORM = Type Input Form
 //TUFORM = Type Update Form
-public interface CRUDService<T, TID, TIFORM, TUFORM> {
+public interface CRUDService<T, TID, TFORM> {
 
 
 
     //CREATE
-    T create(TIFORM toInsert);
+    T create(TFORM toInsert);
 
     //UPDATE
-    T update(TID id, TUFORM toUpdate);
+    T update(TID id, TFORM toUpdate);
 
     //READ
     T getOne(TID id);

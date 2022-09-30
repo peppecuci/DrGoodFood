@@ -1,10 +1,13 @@
 package com.giuseppe.bruxelles.drgoodfood.models.forms;
 
-public class AddressInsertForm {
+import lombok.Data;
 
-    private int num;
+@Data
+public class AddressForm {
+
+    private Integer num;
     private String street;
-    private int zipCode;
+    private Integer zipCode;
     private String city;
 
 }

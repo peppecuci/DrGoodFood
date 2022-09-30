@@ -1,15 +1,11 @@
 package com.giuseppe.bruxelles.drgoodfood.models.dtos;
 
 import com.giuseppe.bruxelles.drgoodfood.enums.Status;
-import com.giuseppe.bruxelles.drgoodfood.models.entities.Address;
-import com.giuseppe.bruxelles.drgoodfood.models.entities.Consultation;
-import com.giuseppe.bruxelles.drgoodfood.models.entities.CustomerOrder;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.Subscription;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
@@ -22,10 +18,11 @@ public class ClientDTO {
     private String nickname;
     private String mailAddress;
     private String creditCard;
-    private Address address;
+    private AddressDTO address;
     private Status status;
-    private List<Consultation> consultations;
+    private boolean isActive;
+//  TODO  private List<Consultation> consultations; METTRE dto ET PAS entité
     private Subscription subscription;
-    private List<CustomerOrder> orders;
+//  TODO private List<CustomerOrder> orders; METTRE dto ET PAS entité
 
 }

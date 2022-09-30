@@ -1,11 +1,12 @@
 package com.giuseppe.bruxelles.drgoodfood.services.impl;
 
 import com.giuseppe.bruxelles.drgoodfood.exceptions.ElementNotFoundException;
+import com.giuseppe.bruxelles.drgoodfood.mappers.AddressMapper;
 import com.giuseppe.bruxelles.drgoodfood.mappers.ClientMapper;
 import com.giuseppe.bruxelles.drgoodfood.models.dtos.ClientDTO;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.Client;
-import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientInsertForm;
-import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientUpdateForm;
+import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientForm;
+import com.giuseppe.bruxelles.drgoodfood.repositories.AddressRepository;
 import com.giuseppe.bruxelles.drgoodfood.repositories.ClientRepository;
 import com.giuseppe.bruxelles.drgoodfood.services.ClientService;
 import org.springframework.stereotype.Service;
@@ -18,27 +19,34 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository repository;
+    private final AddressRepository addressRepository;
     private final ClientMapper clientMapper;
+    private final AddressMapper addressMapper;
 
-    public ClientServiceImpl(ClientRepository repository, ClientMapper clientMapper) {
+    public ClientServiceImpl(ClientRepository repository, AddressRepository addressRepository, ClientMapper clientMapper, AddressMapper addressMapper) {
         this.repository = repository;
+        this.addressRepository = addressRepository;
         this.clientMapper = clientMapper;
+        this.addressMapper = addressMapper;
     }
 
 
     @Override
-    public ClientDTO create(ClientInsertForm toInsert) {
+    public ClientDTO create(ClientForm toInsert) {
 
         if(toInsert == null)
             throw new IllegalArgumentException("client -to insert- cannot be null");
 
         Client client = clientMapper.toEntity(toInsert);
 
+        addressRepository.save(client.getAddress());
+
         return clientMapper.toDto(repository.save(client));
     }
 
+
     @Override
-    public ClientDTO update(Long id, ClientUpdateForm toUpdate) {
+    public ClientDTO update(Long id, ClientForm toUpdate) {
 
         Client client = repository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Client.class, id));
@@ -55,8 +63,9 @@ public class ClientServiceImpl implements ClientService {
             client.setMailAddress(toUpdate.getMailAddress());
         if (toUpdate.getCreditCard() != null)
             client.setCreditCard(toUpdate.getCreditCard());
-        if (toUpdate.getAddress() != null)
-            client.setAddress(toUpdate.getAddress());
+       if (toUpdate.getAddress() != null)
+           client.setAddress(toUpdate.getAddress());
+
         client = repository.save(client);
         return clientMapper.toDto(client);
 

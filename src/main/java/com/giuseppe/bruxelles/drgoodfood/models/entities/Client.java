@@ -39,6 +39,9 @@ public class Client {
     @Column(/*nullable = false, */name = "credit_card")
     private String creditCard;
 
+    @Column(nullable = false, name = "is_active")
+    private boolean isActive = false;
+
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
@@ -55,5 +58,7 @@ public class Client {
 
     @OneToMany(mappedBy = "client") //done
     private List<CustomerOrder> orders;
+
+
 
 }

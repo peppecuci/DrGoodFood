@@ -1,8 +1,7 @@
 package com.giuseppe.bruxelles.drgoodfood.controllers;
 
 import com.giuseppe.bruxelles.drgoodfood.models.dtos.ClientDTO;
-import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientInsertForm;
-import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientUpdateForm;
+import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientForm;
 import com.giuseppe.bruxelles.drgoodfood.services.ClientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class ClientController {
 
     //INSERT
     @PostMapping
-    public ClientDTO insert(@RequestBody ClientInsertForm form){
+    public ClientDTO insert(@RequestBody ClientForm form){
 
         return clientService.create(form);
 
@@ -42,7 +41,7 @@ public class ClientController {
     }
 
     @PatchMapping("/{id:[0-9]+}")
-    public ClientDTO update(@PathVariable Long id, @RequestBody ClientUpdateForm form){
+    public ClientDTO update(@PathVariable Long id, @RequestBody ClientForm form){
 
         return clientService.update(id, form);
 
