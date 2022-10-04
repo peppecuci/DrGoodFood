@@ -4,6 +4,7 @@ import com.giuseppe.bruxelles.drgoodfood.exceptions.ElementNotFoundException;
 import com.giuseppe.bruxelles.drgoodfood.mappers.AddressMapper;
 import com.giuseppe.bruxelles.drgoodfood.mappers.ClientMapper;
 import com.giuseppe.bruxelles.drgoodfood.models.dtos.ClientDTO;
+import com.giuseppe.bruxelles.drgoodfood.models.entities.Address;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.Client;
 import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientForm;
 import com.giuseppe.bruxelles.drgoodfood.repositories.AddressRepository;
@@ -42,6 +43,7 @@ public class ClientServiceImpl implements ClientService {
         addressRepository.save(client.getAddress());
 
         return clientMapper.toDto(repository.save(client));
+
     }
 
 
@@ -50,6 +52,8 @@ public class ClientServiceImpl implements ClientService {
 
         Client client = repository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Client.class, id));
+
+        Address address = new Address();
 
         if(toUpdate.getFirstName() != null)
             client.setFirstName(toUpdate.getFirstName());
@@ -64,9 +68,12 @@ public class ClientServiceImpl implements ClientService {
         if (toUpdate.getCreditCard() != null)
             client.setCreditCard(toUpdate.getCreditCard());
        if (toUpdate.getAddress() != null)
-           client.setAddress(toUpdate.getAddress());
+           client.setAddress(AddressMapper.toEntity(toUpdate.getAddress()));
+
+        addressRepository.save(client.getAddress());
 
         client = repository.save(client);
+
         return clientMapper.toDto(client);
 
     }
