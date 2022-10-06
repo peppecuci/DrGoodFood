@@ -5,6 +5,7 @@ import com.giuseppe.bruxelles.drgoodfood.models.forms.AddressForm;
 import com.giuseppe.bruxelles.drgoodfood.services.AddressService;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/address")
 @RestController
 public class AddressController {

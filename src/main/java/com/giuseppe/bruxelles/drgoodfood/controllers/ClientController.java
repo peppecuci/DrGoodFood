@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/client")
 @RestController
 public class ClientController {
@@ -25,7 +26,7 @@ public class ClientController {
 
     }
 
-    //GETONE
+    //GETONE // http://localhost:8080/client/45
     @GetMapping("/{id:[0-9]+}")
     public ClientDTO getOne(@PathVariable Long id) {
 

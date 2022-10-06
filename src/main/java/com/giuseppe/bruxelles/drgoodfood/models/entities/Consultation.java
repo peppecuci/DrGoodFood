@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +32,15 @@ public class Consultation {
 
     @Column(nullable = false, name = "counter")
     private int counter;
+
+    @ElementCollection
+    private List<String> carbsClientLikes;
+
+    @ElementCollection
+    private List<String> fatsClientLikes;
+
+    @ElementCollection
+    private List<String> proteinsClientLikes;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
