@@ -22,13 +22,11 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository repository;
     private final AddressRepository addressRepository;
     private final ClientMapper clientMapper;
-    private final AddressMapper addressMapper;
 
-    public ClientServiceImpl(ClientRepository repository, AddressRepository addressRepository, ClientMapper clientMapper, AddressMapper addressMapper) {
+    public ClientServiceImpl(ClientRepository repository, AddressRepository addressRepository, ClientMapper clientMapper) {
         this.repository = repository;
         this.addressRepository = addressRepository;
         this.clientMapper = clientMapper;
-        this.addressMapper = addressMapper;
     }
 
 
@@ -42,8 +40,15 @@ public class ClientServiceImpl implements ClientService {
 
         addressRepository.save(client.getAddress());
 
+
+
         return clientMapper.toDto(repository.save(client));
 
+    }
+
+    @Override
+    public ClientDTO create(ClientForm toInsert, ClientForm otherToInsert) {
+        return null;
     }
 
 
@@ -59,8 +64,6 @@ public class ClientServiceImpl implements ClientService {
             client.setFirstName(toUpdate.getFirstName());
         if (toUpdate.getLastName() != null)
             client.setLastName(toUpdate.getLastName());
-        if (toUpdate.getDateOfBirth() != null)
-            client.setDateOfBirth(toUpdate.getDateOfBirth());
         if (toUpdate.getNickname() != null)
             client.setNickname(toUpdate.getNickname());
         if (toUpdate.getMailAddress() != null)

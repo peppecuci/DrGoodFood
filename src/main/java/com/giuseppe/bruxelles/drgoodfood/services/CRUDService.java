@@ -10,6 +10,7 @@ public interface CRUDService<T, TID, TFORM> {
 
     //CREATE
     T create(TFORM toInsert);
+    T create(TFORM toInsert, TFORM otherToInsert);
 
     //UPDATE
     T update(TID id, TFORM toUpdate);
@@ -20,6 +21,7 @@ public interface CRUDService<T, TID, TFORM> {
 
     //DELETE
     T delete(TID id);
+
 
 
 }

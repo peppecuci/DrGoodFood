@@ -25,11 +25,10 @@ public class ClientMapper {
 
         client.setFirstName(form.getFirstName());
         client.setLastName(form.getLastName());
-        client.setDateOfBirth(form.getDateOfBirth());
+        client.setSex(form.getSex());
         client.setNickname(form.getNickname());
         client.setMailAddress(form.getMailAddress());
         client.setCreditCard(form.getCreditCard());
-
         address.setNum(form.getAddress().getNum());
         address.setStreet(form.getAddress().getStreet());
         address.setZipCode(form.getAddress().getZipCode());
@@ -52,7 +51,7 @@ public class ClientMapper {
                 .id(entity.getClientId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
-                .dateOfBirth(entity.getDateOfBirth())
+                .sex(entity.getSex())
                 .nickname(entity.getNickname())
                 .mailAddress(entity.getMailAddress())
                 .creditCard(entity.getCreditCard())

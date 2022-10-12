@@ -4,35 +4,62 @@ import com.giuseppe.bruxelles.drgoodfood.exceptions.ElementNotFoundException;
 import com.giuseppe.bruxelles.drgoodfood.mappers.MealPlanMapper;
 import com.giuseppe.bruxelles.drgoodfood.models.dtos.MealPlanDTO;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.MealPlan;
+import com.giuseppe.bruxelles.drgoodfood.models.forms.ConsultationForm;
+import com.giuseppe.bruxelles.drgoodfood.models.forms.MealPlanConsultationForm;
 import com.giuseppe.bruxelles.drgoodfood.models.forms.MealPlanForm;
+import com.giuseppe.bruxelles.drgoodfood.repositories.ConsultationRepository;
 import com.giuseppe.bruxelles.drgoodfood.repositories.MealPlanRepository;
+import com.giuseppe.bruxelles.drgoodfood.services.ConsultationService;
 import com.giuseppe.bruxelles.drgoodfood.services.MealPlanService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class MealPlanServiceImpl implements MealPlanService {
+    private final ConsultationService consultationService;
+
+    private final ConsultationRepository consultRepo;
 
     private final MealPlanRepository repository;
 
     private final MealPlanMapper mapper;
 
-    public MealPlanServiceImpl(MealPlanRepository repository, MealPlanMapper mapper) {
+    public MealPlanServiceImpl(ConsultationService consultationService, ConsultationRepository consultRepo, MealPlanRepository repository, MealPlanMapper mapper) {
+        this.consultationService = consultationService;
+        this.consultRepo = consultRepo;
         this.repository = repository;
         this.mapper = mapper;
     }
 
     @Override
-    public MealPlanDTO create(MealPlanForm toInsert) {
+    public MealPlanDTO create(MealPlanForm toInsert, ConsultationForm consultationForm) {
 
         if(toInsert == null)
             throw new IllegalArgumentException("mealplan -to insert- cannot be null");
 
         MealPlan mealPlan = mapper.toEntity(toInsert);
 
+        mealPlan.setCaloriesTotal((int) consultationService.dailyMaintenanceCalories(consultationForm));
+
         return mapper.toDto(repository.save(mealPlan));
 
+    }
+
+    @Override
+    public MealPlanDTO create(MealPlanConsultationForm form) {
+        return null;
+    }
+
+    @Override
+    public MealPlanDTO create(MealPlanForm toInsert) {
+        return null;
+    }
+
+    @Override
+    public MealPlanDTO create(MealPlanForm toInsert, MealPlanForm otherToInsert) {
+        return null;
     }
 
     @Override
@@ -65,6 +92,14 @@ public class MealPlanServiceImpl implements MealPlanService {
                 .orElseThrow(() -> new ElementNotFoundException(MealPlan.class, id));
     }
 
+    public MealPlanDTO getMostRecentDate(long id){
+
+        return consultRepo.findLast(id)
+                .map( consultation -> mapper.toDto(consultation.getMealPlan()) )
+                .orElseThrow(() -> new ElementNotFoundException(MealPlan.class, id));
+
+    }
+
     @Override
     public List<MealPlanDTO> getAll() {
 
@@ -77,4 +112,5 @@ public class MealPlanServiceImpl implements MealPlanService {
     public MealPlanDTO delete(Long id) {
         return null;
     }
+
 }

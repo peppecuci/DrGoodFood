@@ -1,11 +1,8 @@
 package com.giuseppe.bruxelles.drgoodfood.models.dtos;
 
-import com.giuseppe.bruxelles.drgoodfood.models.entities.Consultation;
-import com.giuseppe.bruxelles.drgoodfood.models.entities.Meal;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 @Builder

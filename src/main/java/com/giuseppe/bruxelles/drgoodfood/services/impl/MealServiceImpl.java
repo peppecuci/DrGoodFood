@@ -36,6 +36,11 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
+    public MealDTO create(MealForm toInsert, MealForm otherToInsert) {
+        return null;
+    }
+
+    @Override
     public MealDTO update(Long id, MealForm toUpdate) {
         return null;
     }

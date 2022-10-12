@@ -27,8 +27,8 @@ public class Client {
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
-    @Column(nullable = false, name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    @Column(nullable = false, name = "sex")
+    private String sex;
 
     @Column(nullable = false, name = "nickname")
     private String nickname;

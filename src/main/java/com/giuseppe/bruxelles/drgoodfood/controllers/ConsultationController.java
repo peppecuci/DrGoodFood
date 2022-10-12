@@ -24,6 +24,7 @@ public class ConsultationController {
 
         return service.create(form);
 
+
     }
 
     @GetMapping("/{id:[0-9]+}")
@@ -39,6 +40,8 @@ public class ConsultationController {
         return service.getAll();
 
     }
+
+
 
 }
 

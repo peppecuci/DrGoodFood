@@ -9,8 +9,8 @@ public class ClientForm {
 
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
     private String nickname;
+    private String sex;
     private String mailAddress;
     private String creditCard;
     private AddressForm address;

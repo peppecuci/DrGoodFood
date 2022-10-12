@@ -14,7 +14,7 @@ public class ClientDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
+    private String sex;
     private String nickname;
     private String mailAddress;
     private String creditCard;

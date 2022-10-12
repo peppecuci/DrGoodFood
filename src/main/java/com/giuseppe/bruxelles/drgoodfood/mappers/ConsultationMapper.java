@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class ConsultationMapper {
 
     private final ClientMapper clientMapper;
+    private final MealPlanMapper mealPlanMapper;
 
-    public ConsultationMapper(ClientMapper clientMapper) {
+    public ConsultationMapper(ClientMapper clientMapper, MealPlanMapper mealPlanMapper) {
         this.clientMapper = clientMapper;
+        this.mealPlanMapper = mealPlanMapper;
     }
 
     public Consultation toEntity(ConsultationForm form){
@@ -22,8 +24,13 @@ public class ConsultationMapper {
         Consultation consultation = new Consultation();
 
         consultation.setDateConsultation(form.getDateConsultation());
+        consultation.setSex(form.getSex());
+        consultation.setHeight(form.getHeight());
         consultation.setWeight(form.getWeight());
-        consultation.setWaistCirumference(form.getWaistCirumference());
+        consultation.setAge(form.getAge());
+        consultation.setWaistCirumference(form.getWaistCircumference());
+        consultation.setGoal(form.getGoal());
+        consultation.setTrainPerWeek(form.getTrainPerWeek());
 
         return consultation;
 
@@ -38,12 +45,17 @@ public class ConsultationMapper {
         return ConsultationDTO.builder()
                 .consultationId(entity.getConsultationId())
                 .dateConsultation(entity.getDateConsultation())
+                .sex(entity.getSex())
+                .height(entity.getHeight())
                 .weight(entity.getWeight())
-                .waistCirumference(entity.getWaistCirumference())
+                .age(entity.getAge())
+                .waistCircumference(entity.getWaistCirumference())
+                .bmi(entity.getBmi())
+                .goal(entity.getGoal())
+                .trainPerWeek(entity.getTrainPerWeek())
                 .client(clientMapper.toDto(entity.getClient()))
-//                TODO .mealPlan(mealPlanMapper.toDto(entity.getMealPlan())
+                .mealPlan(mealPlanMapper.toDto(entity.getMealPlan()))
                 .build();
-
     }
 
 }

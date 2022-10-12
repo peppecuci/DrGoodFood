@@ -22,13 +22,31 @@ public class Consultation {
     private Long consultationId;
 
     @Column(nullable = false, name = "date_of_consultation")
-    private LocalDate dateConsultation = LocalDate.now();
+    private LocalDate dateConsultation;
+
+    @Column(nullable = false, name = "sex")
+    private String sex;
+
+    @Column(nullable = false, name = "height")
+    private int height;
 
     @Column(nullable = false, name = "weight")
     private int weight;
 
+    @Column(nullable = false, name = "age")
+    private int age;
+
     @Column(nullable = false, name = "waist_circumference")
     private int waistCirumference;
+
+    @Column(nullable = false, name = "goal")
+    private String goal;
+
+    @Column(nullable = false, name = "train_per_week")
+    private String trainPerWeek;
+
+    @Column(nullable = false, name = "bmi")
+    private float bmi;
 
     @Column(nullable = false, name = "counter")
     private int counter;
