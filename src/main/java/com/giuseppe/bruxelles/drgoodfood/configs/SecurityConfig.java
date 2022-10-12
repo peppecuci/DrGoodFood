@@ -1,4 +1,4 @@
-package com.giuseppe.bruxelles.drgoodfood.configs;
+/*package com.giuseppe.bruxelles.drgoodfood.configs;
 
 import com.giuseppe.bruxelles.drgoodfood.configs.filters.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
@@ -40,3 +40,4 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
 
     }}
+*/
