@@ -1,6 +1,8 @@
 package com.giuseppe.bruxelles.drgoodfood.configs.services;
 
-import com.giuseppe.bruxelles.drgoodfood.repositories.ClientRepository;
+import com.giuseppe.bruxelles.drgoodfood.configs.entities.UserCustom;
+import com.giuseppe.bruxelles.drgoodfood.configs.forms.UserCustomCreateForm;
+import com.giuseppe.bruxelles.drgoodfood.configs.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,25 +12,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final ClientRepository repository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public CustomUserDetailsService(ClientRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
+    public CustomUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("connexion impossible"));
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("impossible to connect"));
     }
 
-    public void create(UtilisateurCreateForm toCreate){
+    public void create(UserCustomCreateForm toCreate){
 
-        Utilisateur utilisateur = toCreate.toEntity();
-        utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
-        repository.save( utilisateur);
+        UserCustom userCustom = toCreate.toEntity();
+        userCustom.setPassword(passwordEncoder.encode(userCustom.getPassword()));
+        userRepository.save(userCustom);
 
 
     }
