@@ -1,4 +1,4 @@
-package com.giuseppe.bruxelles.drgoodfood.configs.utils;
+package com.giuseppe.bruxelles.drgoodfood.utils;
 
 import lombok.Getter;
 import lombok.Setter;

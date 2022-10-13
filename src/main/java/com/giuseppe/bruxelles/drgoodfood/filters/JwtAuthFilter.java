@@ -1,6 +1,6 @@
-/*package com.giuseppe.bruxelles.drgoodfood.configs.filters;
+package com.giuseppe.bruxelles.drgoodfood.filters;
 
-import com.giuseppe.bruxelles.drgoodfood.configs.utils.JwtProvider;
+import com.giuseppe.bruxelles.drgoodfood.utils.JwtProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -33,4 +33,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-}*/
+}

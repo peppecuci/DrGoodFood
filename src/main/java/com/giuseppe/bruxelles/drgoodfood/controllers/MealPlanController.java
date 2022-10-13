@@ -35,7 +35,7 @@ public class MealPlanController {
     @GetMapping("{id:[0-9]+}")
     public MealPlanDTO getOne(@PathVariable Long id){
 
-        return service.getOne(id);
+        return service.readOne(id);
 
     }
 
@@ -49,7 +49,7 @@ public class MealPlanController {
     @GetMapping
     public List<MealPlanDTO> getAll(){
 
-        return service.getAll();
+        return service.readAll();
 
     }
 

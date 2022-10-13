@@ -36,17 +36,12 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public MealDTO create(MealForm toInsert, MealForm otherToInsert) {
-        return null;
-    }
-
-    @Override
     public MealDTO update(Long id, MealForm toUpdate) {
         return null;
     }
 
     @Override
-    public MealDTO getOne(Long id) {
+    public MealDTO readOne(Long id) {
 
         return repository.findById(id)
                 .map(mapper::toDto)
@@ -55,7 +50,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public List<MealDTO> getAll() {
+    public List<MealDTO> readAll() {
 
         return repository.findAll().stream()
                 .map(mapper::toDto)
@@ -64,7 +59,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public MealDTO delete(Long id) {
-        return null;
+    public void delete(Long id) {
+
     }
 }

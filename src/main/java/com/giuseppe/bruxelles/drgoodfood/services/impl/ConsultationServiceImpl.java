@@ -77,10 +77,6 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     }
 
-    @Override
-    public ConsultationDTO create(ConsultationForm toInsert, ConsultationForm otherToInsert) {
-        return null;
-    }
 
     @Override
     // METHOD NOT NEEDED FOR THE MOMENT
@@ -89,7 +85,7 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO getOne(Long id) {
+    public ConsultationDTO readOne(Long id) {
 
         if(id == null)
             throw new IllegalArgumentException("id cannot be null");
@@ -100,7 +96,7 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public List<ConsultationDTO> getAll() {
+    public List<ConsultationDTO> readAll() {
 
         return repository.findAll().stream()
                 .map(consultationMapper::toDto)
@@ -109,8 +105,7 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO delete(Long id) {
-        return null;
+    public void delete(Long id) {
     }
 
     public double dailyMaintenanceCalories(ConsultationForm form) {

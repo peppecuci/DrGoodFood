@@ -58,11 +58,6 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
     @Override
-    public MealPlanDTO create(MealPlanForm toInsert, MealPlanForm otherToInsert) {
-        return null;
-    }
-
-    @Override
     public MealPlanDTO update(Long id, MealPlanForm toUpdate) {
 
         MealPlan mealPlan = repository.findById(id)
@@ -82,7 +77,7 @@ public class MealPlanServiceImpl implements MealPlanService {
         return mapper.toDto(mealPlan);    }
 
     @Override
-    public MealPlanDTO getOne(Long id) {
+    public MealPlanDTO readOne(Long id) {
 
         if(id == null)
             throw new IllegalArgumentException("id cannot be null");
@@ -101,7 +96,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
     @Override
-    public List<MealPlanDTO> getAll() {
+    public List<MealPlanDTO> readAll() {
 
         return repository.findAll().stream()
                 .map(mapper::toDto)
@@ -109,8 +104,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
     @Override
-    public MealPlanDTO delete(Long id) {
-        return null;
-    }
+    public void delete(Long id) {
+            }
 
 }

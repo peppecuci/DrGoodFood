@@ -1,11 +1,11 @@
-package com.giuseppe.bruxelles.drgoodfood.configs.forms;
+package com.giuseppe.bruxelles.drgoodfood.models.forms;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UserLoginForm {
+public class ClientLoginForm {
     @NotBlank
     private String username;
     @NotBlank

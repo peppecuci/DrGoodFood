@@ -1,4 +1,4 @@
-package com.giuseppe.bruxelles.drgoodfood.configs.forms;
+package com.giuseppe.bruxelles.drgoodfood.models.dtos;
 
 public class TokenDTO {
     public String token;

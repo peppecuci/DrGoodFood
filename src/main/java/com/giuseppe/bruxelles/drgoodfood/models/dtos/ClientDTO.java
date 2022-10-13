@@ -6,21 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
 public class ClientDTO {
 
     private Long id;
+    private String username;
     private String firstName;
     private String lastName;
     private String sex;
-    private String nickname;
     private String mailAddress;
     private String creditCard;
     private AddressDTO address;
     private Status status;
-    private boolean isActive;
+    private boolean enabled;
+    private List<String> roles;
 //  TODO  private List<Consultation> consultations; METTRE dto ET PAS entité
     private Subscription subscription;
 //  TODO private List<CustomerOrder> orders; METTRE dto ET PAS entité

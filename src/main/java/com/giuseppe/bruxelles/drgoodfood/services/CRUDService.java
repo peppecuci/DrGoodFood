@@ -4,23 +4,20 @@ import java.util.List;
 
 //TIFORM = Type Input Form
 //TUFORM = Type Update Form
-public interface CRUDService<T, TID, TFORM> {
-
-
+public interface CRUDService<TDTO, TID, TFORM> {
 
     //CREATE
-    T create(TFORM toInsert);
-    T create(TFORM toInsert, TFORM otherToInsert);
+    TDTO create(TFORM toInsert);
 
     //UPDATE
-    T update(TID id, TFORM toUpdate);
+    TDTO update(TID id, TFORM toUpdate);
 
     //READ
-    T getOne(TID id);
-    List<T> getAll();
+    TDTO readOne(TID id);
+    List<TDTO> readAll();
 
     //DELETE
-    T delete(TID id);
+    void delete(TID id);
 
 
 

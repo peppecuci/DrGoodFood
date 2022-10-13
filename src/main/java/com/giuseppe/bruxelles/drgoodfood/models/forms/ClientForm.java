@@ -6,13 +6,12 @@ import java.time.LocalDate;
 
 @Data
 public class ClientForm {
-
     private String firstName;
     private String lastName;
-    private String nickname;
+    private String username;
+    private String password;
     private String sex;
     private String mailAddress;
-    private String creditCard;
     private AddressForm address;
 
 }

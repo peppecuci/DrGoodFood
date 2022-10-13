@@ -34,11 +34,6 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDTO create(AddressForm toInsert, AddressForm otherToInsert) {
-        return null;
-    }
-
-    @Override
     public AddressDTO update(Long id, AddressForm toUpdate) {
 
         Address address = repository.findById(id)
@@ -59,7 +54,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDTO getOne(Long id) {
+    public AddressDTO readOne(Long id) {
 
         if(id == null)
             throw new IllegalArgumentException("id cannot be null");
@@ -71,7 +66,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressDTO> getAll() {
+    public List<AddressDTO> readAll() {
 
         return repository.findAll().stream()
                 .map(mapper::toDto)
@@ -80,15 +75,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDTO delete(Long id){
+    public void delete(Long id){
 
         Address address = repository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Address.class, id));
 
         repository.delete(address);
         address.setAddressId(null);
-
-        return mapper.toDto(address);
     }
 
 }

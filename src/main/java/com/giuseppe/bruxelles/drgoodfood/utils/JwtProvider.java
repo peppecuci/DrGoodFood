@@ -1,4 +1,4 @@
-package com.giuseppe.bruxelles.drgoodfood.configs.utils;
+package com.giuseppe.bruxelles.drgoodfood.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

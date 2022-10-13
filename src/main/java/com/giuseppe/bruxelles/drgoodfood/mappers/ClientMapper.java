@@ -4,6 +4,7 @@ import com.giuseppe.bruxelles.drgoodfood.models.dtos.ClientDTO;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.Address;
 import com.giuseppe.bruxelles.drgoodfood.models.entities.Client;
 import com.giuseppe.bruxelles.drgoodfood.models.forms.ClientForm;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,9 +27,10 @@ public class ClientMapper {
         client.setFirstName(form.getFirstName());
         client.setLastName(form.getLastName());
         client.setSex(form.getSex());
-        client.setNickname(form.getNickname());
+        client.setUsername(form.getUsername());
+        client.setPassword(form.getPassword());
         client.setMailAddress(form.getMailAddress());
-        client.setCreditCard(form.getCreditCard());
+
         address.setNum(form.getAddress().getNum());
         address.setStreet(form.getAddress().getStreet());
         address.setZipCode(form.getAddress().getZipCode());
@@ -37,27 +39,25 @@ public class ClientMapper {
         client.setAddress(address);
 
         return client;
-
     }
 
 
     public ClientDTO toDto(Client entity) {
-
-
         if(entity == null)
             return null;
 
         return ClientDTO.builder()
                 .id(entity.getClientId())
+                .username(entity.getUsername())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .sex(entity.getSex())
-                .nickname(entity.getNickname())
                 .mailAddress(entity.getMailAddress())
                 .creditCard(entity.getCreditCard())
                 .address( addressMapper.toDto(entity.getAddress()) )
                 .status(entity.getStatus())
-                .isActive(entity.isActive())
+                .enabled(entity.isEnabled())
+                .roles(entity.getRoles())
 //               TODO .consultations(entity.getConsultations())
 //                .subscription(entity.getSubscription())
 //                .orders(entity.getOrders())

@@ -21,7 +21,7 @@ public class ConsultationController {
     }
 
     @PostMapping
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_CLIENT"})
     public ConsultationDTO insert(@RequestBody ConsultationForm form) {
         return service.create(form);
     }
@@ -29,14 +29,14 @@ public class ConsultationController {
     @GetMapping("/{id:[0-9]+}")
     public ConsultationDTO getOne(@PathVariable Long id){
 
-        return service.getOne(id);
+        return service.readOne(id);
 
     }
 
     @GetMapping
     public List<ConsultationDTO> getAll(){
 
-        return service.getAll();
+        return service.readAll();
 
     }
 

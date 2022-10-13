@@ -28,14 +28,14 @@ public class MealController {
     @GetMapping("/{id:[0-9]+}")
     public MealDTO getOne(@PathVariable Long id) {
 
-        return service.getOne(id);
+        return service.readOne(id);
 
     }
 
     @GetMapping
     public List<MealDTO> getAll(){
 
-        return service.getAll();
+        return service.readAll();
 
     }
 
