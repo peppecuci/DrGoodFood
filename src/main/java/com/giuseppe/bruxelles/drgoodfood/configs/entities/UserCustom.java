@@ -26,29 +26,36 @@ public class UserCustom implements UserDetails {
 
     private String username;
     private String password;
-    private boolean enabled;
+    private boolean enabled = true;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles;
+    private List<String> roles = List.of("USER");
+
+    public UserCustom(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return roles.stream()
+                .map((role) -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.enabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.enabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return this.enabled;
     }
 
 

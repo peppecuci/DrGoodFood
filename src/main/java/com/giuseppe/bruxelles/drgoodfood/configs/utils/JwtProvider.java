@@ -1,4 +1,4 @@
-/*package com.giuseppe.bruxelles.drgoodfood.configs.utils;
+package com.giuseppe.bruxelles.drgoodfood.configs.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,73 +14,57 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.util.stream.Collectors;
 
-@Slf4j
+@Slf4j // activate Logger log automatically
 @Component
 public class JwtProvider {
-
+    //    Logger log = LoggerFactory.getLogger(JWTProvider.class); // activate Logger log manually
+    private final UserDetailsService userDetailsService;
     private final JwtProperties properties;
-    private final UserDetailsService service;
 
-
-    public JwtProvider(JwtProperties properties, UserDetailsService service) {
+    public JwtProvider(UserDetailsService userDetailsService, JwtProperties properties) {
+        this.userDetailsService = userDetailsService;
         this.properties = properties;
-        this.service = service;
     }
 
-    public String createToken(Authentication auth){
-
+    public String createToken(Authentication auth) {
         return JWT.create()
-                .withExpiresAt(Instant.now().plus(10, ChronoUnit.DAYS))
+                // declare the claims of the payload
+                .withExpiresAt(Instant.now().plusSeconds(properties.getExpiresAt()))
                 .withSubject(auth.getName())
-                .withClaim(
-                        "roles",
-                        auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
-                .sign(Algorithm.HMAC512(properties.getSecret())
-                );
-
+                .withClaim("roles", auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                // declare the signature
+                .sign(Algorithm.HMAC512(properties.getSecret())); // you can check the token generated here https://jwt.io/
     }
 
-    public String extractToken(HttpServletRequest request){
-
+    public String extractToken(HttpServletRequest request) {
         String authHeader = request.getHeader(properties.getHeaderKey());
-
         return authHeader == null ? null : authHeader.replace(properties.getHeaderPrefix(), "");
-
     }
 
-    public boolean validate(String token){
-
-        try{
-
-            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(properties.getHeaderKey()))
+    public boolean validate(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(properties.getSecret()))
                     .acceptExpiresAt(properties.getExpiresAt())
-                    .build().verify(token);
-
+                    .build()
+                    .verify(token);
+            // we can still verify more things here for example
+            // return decodedJWT.getSubject().startsWith("C";
             return true;
-
         }
-        catch(JWTVerificationException ex){
-
-            log.warn(ex.getMessage(), ex);
+        catch (JWTVerificationException ex) {
+            // log.warn(ex.getMessage(), ex); // if we want to show warnings in the terminal
             return false;
-
         }
-
     }
 
-    public Authentication generateAuth(String token){
-
+    public Authentication generateAuth(String token) {
         DecodedJWT decodedJWT = JWT.decode(token);
-
-        UserDetails user = service.loadUserByUsername(decodedJWT.getSubject());
-
+        UserDetails user = userDetailsService.loadUserByUsername(decodedJWT.getSubject());
         return new UsernamePasswordAuthenticationToken(
                 decodedJWT.getSubject(),
                 null,
                 user.getAuthorities());
-
     }
-
-}*/
+}

@@ -3,6 +3,7 @@ package com.giuseppe.bruxelles.drgoodfood.controllers;
 import com.giuseppe.bruxelles.drgoodfood.models.dtos.ConsultationDTO;
 import com.giuseppe.bruxelles.drgoodfood.models.forms.ConsultationForm;
 import com.giuseppe.bruxelles.drgoodfood.services.ConsultationService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +21,9 @@ public class ConsultationController {
     }
 
     @PostMapping
+    @Secured({"ROLE_USER"})
     public ConsultationDTO insert(@RequestBody ConsultationForm form) {
-
         return service.create(form);
-
-
     }
 
     @GetMapping("/{id:[0-9]+}")
