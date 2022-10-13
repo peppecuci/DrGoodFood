@@ -73,5 +73,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
         return config.getAuthenticationManager();
 
+
     }
 }
+
